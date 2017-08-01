@@ -3,27 +3,56 @@
 <head>
   <meta charset="UTF-8">
   <title>해봤자 쓸데없지만 재미있는 뱀꼬리게임</title>
+  <style>
+  #container {
+			width		: 100%;
+			height		: 100%;
+			overflow	: hidden;
+			padding		: 0;
+			margin		: 0;
+			-webkit-user-select	: none;
+			-moz-user-select	: none;
+		}
+    </style>
+
 </head>
 <body>
+  <div id="container"> </div>
 <canvas id="gc" height="400" width="400"></canvas>
-<script type="text/javascript" src="../snake/joystick.js"></script>
+<script type="text/javascript" src="../snake/virtualjoystick.js"></script>
 <script>
 
     window.onload=function() {
+
+      var joystick	= new VirtualJoystick({
+  				container	: document.getElementById('container'),
+  				mouseSupport	: true,
+  			});
+        joystick.addEventListener('touchStart', function(){
+  				console.log('down')
+  			})
+  			joystick.addEventListener('touchEnd', function(){
+  				console.log('up')
+  			})
         canv=document.getElementById("gc");
+        container = document.getElementById("container");
         ctx=canv.getContext("2d");
         document.addEventListener("keydown",keyPush);
-
-
-        var joystick = new JoyStick({
-          radius: 80,
-          x: window.innerWidth / 2,
-          y: window.innerHeight /2,
-          inner_radius: 70
-        });
+        //document.addEventListener("onTouchStart", )
 
         setInterval(game,1000/15);
+        setInterval(function(){
+          console.log('current position: ' + joystick.deltaX())
+          if ( joystick.up ) keyPush(38);
+          if ( joystick.down ) keyPush(40);
+          if ( joystick.left ) keyPush(37);
+          if ( joystick.right ) keyPush(39);
+        }, 1/30 * 1000);
+
     }
+
+
+
     px=py=10;
     gs=tc=20;
     ax=ay=15;
@@ -85,10 +114,7 @@
         }
     }
 
-if ( joystick.up ) xv=0;yv=-1;
-if ( joystick.down ) xv=0;yv=1;
-if ( joystick.left ) xv=-1;yv=0;
-if ( joystick.right ) xv=1;yv=0;
+
 
 </script>
 
