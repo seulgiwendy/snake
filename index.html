@@ -13,7 +13,14 @@
         canv=document.getElementById("gc");
         ctx=canv.getContext("2d");
         document.addEventListener("keydown",keyPush);
-        document.addEventListener("load", joystick);
+
+
+        var joystick = new JoyStick({
+          radius: 80,
+          x: window.innerWidth / 2,
+          y: window.innerHeight /2,
+          inner_radius: 70
+        });
 
         setInterval(game,1000/15);
     }
@@ -77,16 +84,6 @@
                 break;
         }
     }
-
-    function joystick(){
-
-      var joystick = new JoyStick({
-        radius: 80,
-        x: window.innerWidth / 2,
-        y: window.innerHeight /2,
-        inner_radius: 70
-      });
-}
 
 if ( joystick.up ) xv=0;yv=-1;
 if ( joystick.down ) xv=0;yv=1;
