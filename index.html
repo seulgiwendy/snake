@@ -6,11 +6,15 @@
 </head>
 <body>
 <canvas id="gc" height="400" width="400"></canvas>
+<script type="text/javascript" src="../snake/joystick.js"></script>
 <script>
+
     window.onload=function() {
         canv=document.getElementById("gc");
         ctx=canv.getContext("2d");
         document.addEventListener("keydown",keyPush);
+        document.addEventListener("load", joystick);
+
         setInterval(game,1000/15);
     }
     px=py=10;
@@ -73,6 +77,22 @@
                 break;
         }
     }
+
+    function joystick(){
+
+      var joystick = new JoyStick({
+        radius: 80,
+        x: window.innerWidth / 2,
+        y: window.innerHeight /2,
+        inner_radius: 70
+      });
+}
+
+if ( joystick.up ) xv=0;yv=-1;
+if ( joystick.down ) xv=0;yv=1;
+if ( joystick.left ) xv=-1;yv=0;
+if ( joystick.right ) xv=1;yv=0;
+
 </script>
 
 </body>
